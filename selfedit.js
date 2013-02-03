@@ -29,6 +29,7 @@ function summary(id, view, obj, text, func)
 function details(id, view, obj)
 {
     var node = document.createElement("div");
+
     node.setAttribute("style", "margin-left:24px");
     if (obj === null)
     {
@@ -36,37 +37,26 @@ function details(id, view, obj)
     }
     else
     {
-        if (obj.valueOf)
-        {
-            node.appendChild( document.createTextNode("value: ") );
-            node.appendChild( document.createTextNode( obj.valueOf() ) );
-            node.appendChild( document.createElement("br") );
-        }
-
-        if (obj.toString)
-        {
-            node.appendChild( document.createTextNode("string: ") );
-            node.appendChild( document.createTextNode( obj.toString() ) );
-            node.appendChild( document.createElement("br") );
-        }
-
-        if (obj.toSource)
-        {
-            node.appendChild( document.createTextNode("source: ") );
-            node.appendChild( document.createTextNode( obj.toSource() ) );
-            node.appendChild( document.createElement("br") );
-        }
-
-        node.appendChild( document.createTextNode("properties:") );
+        var string = obj.toString();
+        node.appendChild( document.createTextNode(string) );
         node.appendChild( document.createElement("br") );
-        var keys = Object.getOwnPropertyNames(obj);
-        for (i = 0; i < keys.length; i++)
+
+        try
         {
-            var key = keys[i];
-            var child = document.createElement("div");
-            fold(key, child, obj[key]);
-            node.appendChild(child);
+            var keys = Object.getOwnPropertyNames(obj);
+            node.appendChild(
+                document.createTextNode("properties (" + keys.length + "):")
+            );
+            node.appendChild( document.createElement("br") );
+            for (i = 0; i < keys.length; i++)
+            {
+                var key = keys[i];
+                var child = document.createElement("div");
+                fold(key, child, obj[key]);
+                node.appendChild(child);
+            }
         }
+        catch(e){}
     }
 
     view.appendChild(node);
