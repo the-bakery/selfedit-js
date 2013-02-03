@@ -30,18 +30,32 @@ function details(id, view, obj)
 {
     var node = document.createElement("div");
     node.setAttribute("style", "margin-left:24px");
-
-    node.appendChild( document.createTextNode("value: ") );
-    node.appendChild( document.createElement("br") );
-
     if (obj === null)
     {
         node.appendChild( document.createTextNode("null") );
     }
     else
     {
-        node.appendChild( document.createTextNode( obj.toString() ) );
-        node.appendChild( document.createElement("br") );
+        if (obj.valueOf)
+        {
+            node.appendChild( document.createTextNode("value: ") );
+            node.appendChild( document.createTextNode( obj.valueOf() ) );
+            node.appendChild( document.createElement("br") );
+        }
+
+        if (obj.toString)
+        {
+            node.appendChild( document.createTextNode("string: ") );
+            node.appendChild( document.createTextNode( obj.toString() ) );
+            node.appendChild( document.createElement("br") );
+        }
+
+        if (obj.toSource)
+        {
+            node.appendChild( document.createTextNode("source: ") );
+            node.appendChild( document.createTextNode( obj.toSource() ) );
+            node.appendChild( document.createElement("br") );
+        }
 
         node.appendChild( document.createTextNode("properties:") );
         node.appendChild( document.createElement("br") );
