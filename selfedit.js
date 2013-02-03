@@ -37,21 +37,22 @@ function details(id, view, obj)
     if (obj === null)
     {
         node.appendChild( document.createTextNode("null") );
-        return node;
     }
-
-    node.appendChild( document.createTextNode( obj.toString() ) );
-    node.appendChild( document.createElement("br") );
-
-    node.appendChild( document.createTextNode("properties:") );
-    node.appendChild( document.createElement("br") );
-    var keys = Object.getOwnPropertyNames(obj);
-    for (i = 0; i < keys.length; i++)
+    else
     {
-        var key = keys[i];
-        var child = document.createElement("div");
-        fold(key, child, obj[key]);
-        node.appendChild(child);
+        node.appendChild( document.createTextNode( obj.toString() ) );
+        node.appendChild( document.createElement("br") );
+
+        node.appendChild( document.createTextNode("properties:") );
+        node.appendChild( document.createElement("br") );
+        var keys = Object.getOwnPropertyNames(obj);
+        for (i = 0; i < keys.length; i++)
+        {
+            var key = keys[i];
+            var child = document.createElement("div");
+            fold(key, child, obj[key]);
+            node.appendChild(child);
+        }
     }
 
     view.appendChild(node);
