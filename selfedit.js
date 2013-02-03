@@ -43,7 +43,7 @@ function details(id, view, obj)
 
         try
         {
-            var keys = Object.getOwnPropertyNames(obj);
+            var keys = Object.getOwnPropertyNames(obj).sort();
             node.appendChild(
                 document.createTextNode("properties (" + keys.length + "):")
             );
